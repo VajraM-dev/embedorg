@@ -131,3 +131,21 @@ npm run dev
 Refer to the [LICENSE](./LICENSE) file for license details.
 
 ---
+
+## Contributing
+
+Contributions are welcome and appreciated.
+
+To contribute:
+
+1. Fork the repository and create a new branch.
+2. Make your changes with clear, focused commits.
+3. Submit a pull request with a detailed description.
+
+> **Note:**
+> Use `uv` for managing backend dependencies.
+> Avoid committing sensitive files such as `.env`.
+
+For major changes, please open an issue first to discuss the proposal.
+
+---
