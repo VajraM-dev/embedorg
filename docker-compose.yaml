@@ -8,7 +8,7 @@ services:
       - "7410:7410"
     volumes:
       - ./.env:/app/.env  # Explicitly mount .env file
-      - C:\\Users\\Prathamesh\\.aws:/root/.aws:ro  # Mount AWS credentials directory (read-only)
+      - ./.aws:/root/.aws:ro  # Mount AWS credentials directory (read-only)
     env_file:
       - .env  # Load environment variables from .env file
     restart: unless-stopped

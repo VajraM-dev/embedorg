@@ -1,114 +1,133 @@
-# RAG Platform Backend
+# EmbedOrg Platform
 
-A FastAPI-based backend service for a Retrieval Augmented Generation (RAG) platform that provides document management, generating embeddings, and vector storage capabilities, and endpoint usage for documents within your organization.
+A full-stack, containerized platform enabling document management, vector embeddings generation, and semantic search for organizations.
 
-## Features
+---
 
-- User Authentication with AWS Cognito
-- Document Management System
-- Team and Project Organization
-- File Upload and S3 Integration
-- Vector Embeddings Generation using AWS Bedrock
-- Vector Storage with pgvector
-- RESTful API Interface
+## Key Features
+
+* **User Authentication:** AWS Cognito-based.
+* **Document Management:** Manage documents by teams and projects.
+* **Vector Embeddings:** AWS Bedrock (Titan Embeddings) powered.
+* **Vector Storage:** PostgreSQL with pgvector for semantic search.
+* **RESTful API:** FastAPI backend.
+* **Web Frontend:** Containerized frontend interface.
+* **Cloud Storage:** AWS S3 integration.
+
+---
 
 ## Tech Stack
 
-- **Framework**: FastAPI
-- **Database**: PostgreSQL with pgvector extension
-- **Authentication**: AWS Cognito
-- **Storage**: AWS S3
-- **Embeddings**: AWS Bedrock (Titan Embeddings)
-- **Containerization**: Docker
-- **Vector Store**: Langchain PGVector
+| Layer            | Technology                                |
+| ---------------- | ----------------------------------------- |
+| Backend          | FastAPI, PostgreSQL (pgvector), Langchain |
+| Authentication   | AWS Cognito                               |
+| Embeddings       | AWS Bedrock (Titan Embeddings)            |
+| Storage          | AWS S3                                    |
+| Frontend         | \[Specify your frontend stack here]       |
+| Containerization | Docker, Docker Compose                    |
+| Package Manager  | uv (for Python dependencies)              |
+
+---
 
 ## Prerequisites
 
-- Python 3.10+
-- Docker and Docker Compose
-- AWS Account with necessary services configured:
-  - S3 Bucket
-  - Cognito User Pool
-  - AWS Bedrock access
-- PostgreSQL with pgvector extension
+* Python 3.10+
+* Docker & Docker Compose
+* AWS Account with:
+
+  * S3 Bucket
+  * Cognito User Pool
+  * Bedrock Access
+* PostgreSQL with pgvector extension
+
+---
 
 ## Environment Variables
 
-Create a `.env` file in the root directory with the following variables:
+A sample `.env.example` is provided with all required environment variables.
 
-```env
-# Auth Setup
-COGNITO_DOMAIN=your-cognito-domain
-COGNITO_CLIENT_ID=your-client-id
-COGNITO_CLIENT_SECRET=your-client-secret
-COGNITO_REGION=your-region
-COGNITO_USER_POOL_ID=your-user-pool-id
-COGNITO_REDIRECT_URI=http://localhost:7410/home
-ENVIRONMENT=development
+### Steps:
 
-# Database Setup
-DB_HOST=pgvectorForRAG
-DB_PORT=5432
-DB_NAME=postgres
-DB_USER=postgres
-DB_PASSWORD=postgres
-PG_VECTOR_DB_NAME=rag_platform_pgvector
+1. Copy `.env.example` to `.env`:
 
-# AWS Setup
-AWS_BUCKET_NAME=your-s3-bucket-name
-CREDENTIAL_PROFILE_NAME=default
-EMBEDDING_MODEL_REGION=us-east-1
-EMBEDDING_MODEL=amazon.titan-embed-text-v2:0
-
-# Auth Bypass (for development)
-AUTH_ENABLED=true
+```bash
+cp .env.example .env
 ```
+
+2. Update values as per your environment.
+
+---
 
 ## Installation & Setup
 
-1. Clone the repository:
+### 1. Clone Repository:
+
 ```bash
 git clone <repository-url>
-cd rag_platform_backend
+cd embed_org_project
 ```
 
-2. Install dependencies:
+### 2. Install Dependencies via `uv`:
+
 ```bash
-pip install -r requirements.txt
+uv pip sync
+
+OR 
+
+uv pip install -r requirements.txt
 ```
 
-3. Configure AWS credentials:
-   - Ensure AWS credentials are properly configured in `~/.aws/credentials`
-   - Or mount credentials when using Docker
+### 3. Configure AWS Credentials:
 
-4. Start the services using Docker Compose:
-```bash
-docker-compose up -d
-```
+Ensure valid credentials in `~/.aws/credentials` or via environment variables.
+
+---
 
 ## Docker Deployment
 
-For development:
+### Development:
+
 ```bash
 docker-compose up -d
 ```
 
-For production:
+### Production (Example):
+
 ```bash
 docker-compose -f prod-docker-compose.yaml up -d
 ```
 
-## Development
+---
 
-The application will be available at `http://localhost:7410`
+## Manual Run Instructions
 
-- API Documentation (Development): `http://localhost:7410/docs`
-- ReDoc Documentation (Development): `http://localhost:7410/redoc`
+### Backend (FastAPI):
 
-## Security Notes
+```bash
+uv run app.py
+```
 
-- Ensure proper AWS IAM roles and permissions are configured
-- Keep your `.env` file secure and never commit it to version control
-- Use strong passwords for database access
-- Enable proper CORS settings in production
-- Configure proper network security groups and firewalls
+### Frontend:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+## Development Endpoints
+
+* **API Docs:** [http://localhost:7410/docs](http://localhost:7410/docs)
+* **ReDoc:** [http://localhost:7410/redoc](http://localhost:7410/redoc)
+* **Frontend**: [http://localhost:3000](http://localhost:3000)
+
+---
+
+## License
+
+Refer to the [LICENSE](./LICENSE) file for license details.
+
+---
