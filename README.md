@@ -150,10 +150,13 @@ For major changes, please open an issue first to discuss the proposal.
 
 ---
 
-Project Status
+## Project Status
+
 This project is our first attempt at building a full-fledged open-source platform. We are actively working to improve its stability and add new features.
 
-This is an initial MVP (Minimum Viable Product) release, and we expect there may be bugs or issues.
+This is an initial **MVP (Minimum Viable Product)** release, and we expect there may be bugs or issues.
 If you encounter any significant problems, unexpected behavior, or have suggestions, please open an issue or contribute directly.
 
 We appreciate your support and feedback as we work towards making this a robust and production-ready platform.
+
+---
