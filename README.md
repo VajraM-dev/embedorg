@@ -4,6 +4,10 @@ A full-stack, containerized platform enabling document management, vector embedd
 
 ---
 
+[![EmbedOrg Image](./readmeassets/Platform.png)](https://your-link-here.com)
+
+---
+
 ## Key Features
 
 * **User Authentication:** AWS Cognito-based.
