@@ -126,12 +126,6 @@ npm run dev
 
 ---
 
-## License
-
-Refer to the [LICENSE](./LICENSE) file for license details.
-
----
-
 ## Contributing
 
 Contributions are welcome and appreciated.
@@ -158,5 +152,22 @@ This is an initial **MVP (Minimum Viable Product)** release, and we expect there
 If you encounter any significant problems, unexpected behavior, or have suggestions, please open an issue or contribute directly.
 
 We appreciate your support and feedback as we work towards making this a robust and production-ready platform.
+
+---
+
+## Team
+
+We thank the following individuals for their contributions to this project:
+
+* **Project Maintainers:**
+
+  * Prathamesh Kulkarni
+  * Piyush Sonawane
+
+---
+
+## License
+
+Refer to the [LICENSE](./LICENSE) file for license details.
 
 ---
