@@ -157,10 +157,6 @@ We appreciate your support and feedback as we work towards making this a robust 
 
 ## Team
 
-We thank the following individuals for their contributions to this project:
-
-* **Project Maintainers:**
-
   * Prathamesh Kulkarni
   * Piyush Sonawane
 
