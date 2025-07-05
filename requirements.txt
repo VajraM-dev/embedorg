@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+python-dotenv
+httpx 
+python-jose
+boto3
+sqlalchemy
+psycopg2
+psycopg2-binary
+python-multipart
+unstructured
+langchain 
+langchain-community 
+langchain-aws
+unstructured[docx]
+unstructured[pdf]
+langchain_postgres

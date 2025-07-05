@@ -1,0 +1,39 @@
+# Stage 1: Dependencies Installation & Build
+FROM node:20-alpine AS builder
+
+WORKDIR /app/frontend
+
+# Copy package.json and package-lock.json
+COPY frontend/package.json frontend/package-lock.json ./
+
+# Install dependencies using npm
+RUN npm ci --legacy-peer-deps
+
+# Copy the rest of your frontend application code
+COPY frontend/. .
+
+# Build the Next.js application using npm
+RUN npm run build
+
+# Stage 2: Production Server
+FROM node:20-alpine AS runner
+
+ENV NODE_ENV production
+
+WORKDIR /app/frontend
+
+# Copy package.json and package-lock.json (if it exists)
+COPY --from=builder /app/frontend/package.json ./package.json
+COPY --from=builder /app/frontend/package-lock.json ./package-lock.json
+
+# Install only production dependencies
+RUN npm ci --omit=dev --legacy-peer-deps && npm cache clean --force
+
+# Copy the build artifacts from the builder stage
+COPY --from=builder /app/frontend/.next ./.next
+COPY --from=builder /app/frontend/public ./public
+
+EXPOSE 3000
+
+# Command to run the Next.js application using npm
+CMD ["npm", "run", "start"]

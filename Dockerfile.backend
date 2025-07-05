@@ -1,0 +1,58 @@
+# FROM python:3.10-slim
+
+# RUN apt-get update && apt-get install -y \
+#     libpq-dev \
+#     gcc \
+#     && rm -rf /var/lib/apt/lists/*
+
+# WORKDIR /app
+
+# COPY requirements.txt .
+
+# RUN pip install --upgrade pip  
+# RUN pip install --no-cache-dir -r requirements.txt
+
+# COPY . .
+
+# # Expose the port your app runs on
+# EXPOSE 7410
+
+# # Command to run the application
+# CMD ["python", "app.py"]
+
+FROM python:3.10-slim
+
+# Install system dependencies. libpq-dev is for psycopg2, gcc for compiling.
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    gcc \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    # Clean up APT cache to reduce image size
+    && rm -rf /var/lib/apt/lists/*
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy only requirements.txt first to leverage Docker's build cache
+COPY requirements.txt .
+
+# Install uv globally in the container
+# We use pip to install uv, but uv will then manage subsequent Python package installations.
+# Using --break-system-packages is necessary because we are installing into the system Python environment inside the container.
+# This is generally acceptable in a Docker image where the environment is isolated.
+RUN pip install --no-cache-dir uv --break-system-packages
+
+# Use uv to install Python dependencies from requirements.txt
+# --no-cache-dir is implied by uv's design, but it's good practice to be explicit if it were pip.
+# uv by default doesn't cache packages in a way pip does.
+RUN uv pip install --system -r requirements.txt
+
+# Copy the rest of your application code
+COPY . .
+
+# Expose the port your application listens on
+EXPOSE 7410
+
+# Command to run your application
+CMD ["python", "app.py"]

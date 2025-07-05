@@ -1,0 +1,60 @@
+services:
+  embedorg-backend:
+    image: main_folder-embedorg-backend:latest
+    build:
+      dockerfile: Dockerfile.backend # Specify the custom Dockerfile name for the backend
+    container_name: embedorg-backend
+    ports:
+      - "7410:7410"
+    volumes:
+      - ./.env:/app/.env  # Explicitly mount .env file
+      - C:\\Users\\Prathamesh\\.aws:/root/.aws:ro  # Mount AWS credentials directory (read-only)
+    env_file:
+      - .env  # Load environment variables from .env file
+    restart: unless-stopped
+    depends_on:
+      embedorg-pgvectorForRAG:
+        condition: service_healthy
+    networks:
+      - platform_network
+
+  embedorg-pgvectorForRAG:
+    image: pgvector/pgvector:pg17
+    container_name: embedorg-pgvectorForRAG
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rag_platform_pgvector
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgvector_data:/var/lib/postgresql/data
+    networks:
+      - platform_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  embedorg-frontend:
+    image: my-nextjs-frontend:latest
+    build:
+      dockerfile: Dockerfile.frontend # Specify the custom Dockerfile name for the frontend
+    container_name: embedorg-frontend
+    ports:
+      - "3000:3000" # Map host port 3000 to container port 3000
+    networks:
+      - platform_network
+    depends_on:
+      embedorg-backend:
+        condition: service_started
+    restart: unless-stopped # Optional: restart policy
+
+volumes:
+  pgvector_data:
+
+networks:
+  platform_network:
+    driver: bridge
