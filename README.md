@@ -28,7 +28,7 @@ A full-stack, containerized platform enabling document management, vector embedd
 | Authentication   | AWS Cognito                               |
 | Embeddings       | AWS Bedrock (Titan Embeddings)            |
 | Storage          | AWS S3                                    |
-| Frontend         | \[Specify your frontend stack here]       |
+| Frontend         | Next Js                                   |
 | Containerization | Docker, Docker Compose                    |
 | Package Manager  | uv (for Python dependencies)              |
 
